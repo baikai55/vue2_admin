@@ -1,0 +1,17 @@
+.el-table .el-table__cell,
+.table-content .el-button {
+  padding: 6px;
+}
+button.el-button.el-button--danger.el-button--mini{
+  margin: 0 10px;
+}
+.el-table .el-table__header th {
+  padding: 15px;
+  color: #000;
+  font-weight: 700;
+}
+.table-control-main .block {
+  text-align: center;
+  padding-top: 5px;
+  background-color: #fff;
+}

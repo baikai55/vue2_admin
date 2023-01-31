@@ -1,29 +1,76 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+import login from "@/views/login";
+import Layout from "@/views/layout";
+import asyncRouetr from "./aynsc";
+import nprogress from "nprogress";
+import store from "@/store";
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/login",
+    name: "login",
+    component: login,
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+    path: "/",
+    component: Layout,
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/index"),
+      },
+    ],
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  nprogress.start();
+  if (to.path == "/login") {
+    next();
+  } else {
+    let token = localStorage.getItem("token");
+    if (!token) {
+      next("/login");
+    } else {
+      next();
+    }
+  }
+});
+router.afterEach(() => {
+  //路由跳转结束之后 进度条结束
+  nprogress.done();
+});
+export function initAsyncRouter() {
+  // 根据二级权限 对路由规则进行动态的添加
+  const currentRoutes = router.options.routes;
+  const rightList = store.state.userRole;
+  rightList.forEach((item) => {
+    if (item.path) {
+      const temp = asyncRouetr[item.path];
+      if (temp) {
+        currentRoutes[1].children.push(temp);
+      }
+    }
+    if (item.children && item.children.length > 0) {
+      item.children.forEach((item) => {
+        // item 二级权限
+        const temp = asyncRouetr[item.path];
+        if (temp) {
+          currentRoutes[1].children.push(temp);
+        }
+      });
+    }
+  });
+  router.addRoute(...currentRoutes);
+}
+
+export default router;

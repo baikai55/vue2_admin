@@ -1,0 +1,22 @@
+.el-dialog {
+  width: 65% !important;
+  .el-dialog__body {
+    .content-dia {
+      max-height: 50vh;
+      overflow: auto;
+      padding-right: 30px;
+      #need-flex {
+        .el-form-item__content {
+          display: flex;
+        }
+      }
+      .el-form-item__content{
+        .select.el-input.is-disabled{
+          input.el-input__inner{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
