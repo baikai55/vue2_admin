@@ -2,8 +2,8 @@
     <div class="header">
         <el-header>
             <div class="left">
-                <img class="logo" src="@/assets/images/login/logo.png" alt="">
-                <span>警长伙伴后台管理系统</span>
+                <!-- <img class="logo" src="@/assets/images/login/logo.png" alt=""> -->
+                <span>xxxx后台管理系统</span>
             </div>
 
             <div class="username">

@@ -7,7 +7,7 @@
         <el-container class="right">
           <el-container>
             <el-main>
-              <!-- <Bread></Bread> -->
+              <Bread></Bread>
               <!-- <Tabs></Tabs> -->
               <!-- <div class="bgc"> -->
               <router-view :key="key"></router-view>

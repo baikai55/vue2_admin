@@ -6,6 +6,13 @@ import Layout from "@/views/layout";
 import asyncRouetr from "./aynsc";
 import nprogress from "nprogress";
 import store from "@/store";
+
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 Vue.use(VueRouter);
 
 const routes = [

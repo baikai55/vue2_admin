@@ -12,5 +12,7 @@ export default {
 };
 </script>
 <style lang="scss">
-
+#nprogress .bar {
+  background: red !important;
+}
 </style>
